@@ -10,200 +10,88 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..700&family=JetBrains+Mono:wght@400;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #0c0c0a;
-      --bg-alt: #13120f;
-      --card: #191814;
-      --text: #f2ece1;
-      --muted: #a9a295;
-      --body: #d6d0c4;
-      --ember: #e88962;
-      --rust: #c94a30;
-      --rust-bright: #dd583d;
-      --border: rgba(222, 168, 132, 0.18);
+      --bg: #0c0c0a; --bg-alt: #13120f; --card: #191814; --text: #f2ece1;
+      --muted: #a9a295; --body: #d6d0c4; --ember: #e88962; --rust: #c94a30;
+      --rust-bright: #dd583d; --border: rgba(222,168,132,0.18);
       --serif: 'Playfair Display', Georgia, serif;
       --sans: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
       --mono: 'JetBrains Mono', Menlo, monospace;
     }
-
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--sans);
-      -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
-    }
+    body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--sans); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
     a { color: inherit; text-decoration: none; }
     button, textarea, input { font: inherit; }
-
     .container { width: min(1140px, 90%); margin: 0 auto; }
 
-    /* Header */
-    .header {
-      position: sticky;
-      top: 0;
-      z-index: 30;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      padding: 14px 5%;
-      background: rgba(12, 12, 10, 0.92);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-    }
+    .header { position: sticky; top: 0; z-index: 30; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 14px 5%; background: rgba(12,12,10,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
     .brand { display: inline-flex; align-items: center; gap: 12px; }
-    .monogram {
-      width: 40px; height: 40px;
-      display: grid; place-items: center;
-      border: 1px solid #d45b39;
-      background: rgba(212, 91, 57, 0.12);
-      font-family: var(--serif); font-weight: 600; font-size: 14px; letter-spacing: 0.08em;
-      flex-shrink: 0;
-    }
+    .monogram { width: 40px; height: 40px; display: grid; place-items: center; border: 1px solid #d45b39; background: rgba(212,91,57,0.12); font-family: var(--serif); font-weight: 600; font-size: 14px; letter-spacing: 0.08em; flex-shrink: 0; }
     .brand-text { display: flex; flex-direction: column; line-height: 1.2; }
     .brand-text strong { font-family: var(--serif); font-size: 15px; font-weight: 600; color: #f5efe4; }
     .brand-text small { font-size: 10px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--muted); margin-top: 2px; }
-
     .nav { display: flex; align-items: center; gap: 26px; }
     .nav a { font-size: 12px; text-transform: uppercase; letter-spacing: 0.12em; font-weight: 600; color: #cfc8ba; transition: color 0.2s; }
     .nav a:hover { color: var(--ember); }
-    .nav-cta {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 10px 16px; background: var(--rust); color: #fff !important; border: 1px solid #e06d53;
-    }
+    .nav-cta { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; background: var(--rust); color: #fff !important; border: 1px solid #e06d53; }
     .nav-cta:hover { background: var(--rust-bright); }
+    .menu-btn { display: none; width: 42px; height: 42px; background: transparent; border: 1px solid var(--border); color: var(--text); place-items: center; cursor: pointer; }
 
-    .menu-btn {
-      display: none;
-      width: 42px; height: 42px;
-      background: transparent; border: 1px solid var(--border); color: var(--text);
-      place-items: center; cursor: pointer;
-    }
-
-    /* Buttons */
-    .btn {
-      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-      min-height: 48px; padding: 0 22px;
-      font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.13em;
-      border: 1px solid transparent; cursor: pointer;
-      transition: transform 0.2s, background 0.2s, border-color 0.2s;
-    }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px; padding: 0 22px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.13em; border: 1px solid transparent; cursor: pointer; transition: transform 0.2s, background 0.2s, border-color 0.2s; }
     .btn:hover:not(:disabled):not(.is-disabled) { transform: translateY(-2px); }
-    .btn-primary {
-      background: var(--rust); color: #fff; border-color: #e47157;
-      box-shadow: 0 10px 28px rgba(201, 74, 48, 0.28);
-    }
+    .btn-primary { background: var(--rust); color: #fff; border-color: #e47157; box-shadow: 0 10px 28px rgba(201,74,48,0.28); }
     .btn-primary:hover:not(.is-disabled) { background: var(--rust-bright); }
-    .btn-ghost { background: rgba(255, 255, 255, 0.05); color: var(--text); border-color: rgba(242, 236, 225, 0.25); }
-    .btn-ghost:hover { background: rgba(255, 255, 255, 0.1); border-color: var(--ember); }
-    .btn-outline { background: transparent; color: var(--text); border-color: rgba(222, 168, 132, 0.38); }
-    .btn-outline:hover:not(:disabled) { background: rgba(212, 91, 57, 0.14); border-color: var(--ember); }
+    .btn-ghost { background: rgba(255,255,255,0.05); color: var(--text); border-color: rgba(242,236,225,0.25); }
+    .btn-ghost:hover { background: rgba(255,255,255,0.1); border-color: var(--ember); }
+    .btn-outline { background: transparent; color: var(--text); border-color: rgba(222,168,132,0.38); }
+    .btn-outline:hover:not(:disabled) { background: rgba(212,91,57,0.14); border-color: var(--ember); }
     .btn:disabled, .btn.is-disabled { opacity: 0.4; cursor: not-allowed; }
 
-    /* Hero */
-    .hero {
-      position: relative; padding: 64px 0 72px;
-      background: linear-gradient(160deg, #12110e 0%, #0c0c0a 60%, #16110e 100%);
-      overflow: hidden;
-    }
-    .hero-glow {
-      position: absolute; inset: 0; pointer-events: none;
-      background: radial-gradient(circle at 76% 38%, rgba(201, 74, 48, 0.22), transparent 48%);
-    }
-    .hero-grid {
-      position: absolute; inset: 0; pointer-events: none; opacity: 0.25;
-      background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-      background-size: 48px 48px;
-    }
-    .hero-inner {
-      position: relative; z-index: 1;
-      display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 48px; align-items: center;
-    }
-    .tag {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 6px 12px; border: 1px solid rgba(212, 91, 57, 0.45);
-      background: rgba(212, 91, 57, 0.1); color: #ea8c68;
-      font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
-    }
-    .hero h1 {
-      font-family: var(--serif); font-size: clamp(40px, 5.5vw, 72px);
-      line-height: 1.04; font-weight: 500; margin: 20px 0 18px; letter-spacing: -0.02em;
-    }
+    .hero { position: relative; padding: 64px 0 72px; background: linear-gradient(160deg, #12110e 0%, #0c0c0a 60%, #16110e 100%); overflow: hidden; }
+    .hero-glow { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(circle at 76% 38%, rgba(201,74,48,0.22), transparent 48%); }
+    .hero-grid { position: absolute; inset: 0; pointer-events: none; opacity: 0.25; background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px); background-size: 48px 48px; }
+    .hero-inner { position: relative; z-index: 1; display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 48px; align-items: center; }
+    .tag { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border: 1px solid rgba(212,91,57,0.45); background: rgba(212,91,57,0.1); color: #ea8c68; font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; }
+    .hero h1 { font-family: var(--serif); font-size: clamp(40px, 5.5vw, 72px); line-height: 1.04; font-weight: 500; margin: 20px 0 18px; letter-spacing: -0.02em; }
     .hero h1 em { color: var(--ember); font-style: italic; }
     .hero-sub { font-size: 16px; line-height: 1.7; color: #c8c1b4; max-width: 540px; margin: 0 0 28px; }
     .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 30px; }
-    .hero-meta {
-      display: flex; flex-wrap: wrap; gap: 24px; padding-top: 22px;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em;
-    }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 24px; padding-top: 22px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
     .hero-meta strong { color: var(--text); margin-right: 4px; }
+    .cover-stage { padding: 18px; background: #161512; border: 1px solid rgba(222,168,132,0.25); box-shadow: 0 28px 70px rgba(0,0,0,0.65); max-width: 390px; margin-left: auto; }
+    .cover-badge { display: inline-block; margin-bottom: 12px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em; color: #ea8c68; }
+    .cover-img { width: 100%; height: auto; display: block; object-fit: cover; max-height: 430px; background: #0c0c0a; }
+    .cover-caption { display: flex; justify-content: space-between; gap: 10px; margin-top: 12px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); }
 
-    .cover-stage {
-      padding: 18px; background: #161512; border: 1px solid rgba(222, 168, 132, 0.25);
-      box-shadow: 0 28px 70px rgba(0,0,0,0.65); max-width: 390px; margin-left: auto;
-    }
-    .cover-badge {
-      display: inline-block; margin-bottom: 12px; font-family: var(--mono);
-      font-size: 10px; letter-spacing: 0.16em; color: #ea8c68;
-    }
-    .cover-img { width: 100%; height: auto; display: block; object-fit: contain; max-height: 440px; background: #0c0c0a; }
-    .cover-caption {
-      display: flex; justify-content: space-between; gap: 10px; margin-top: 12px;
-      font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted);
-    }
-
-    /* Pillars */
-    .pillars {
-      background: #141310;
-      border-top: 1px solid rgba(255,255,255,0.08);
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-      padding: 36px 0;
-    }
+    .pillars { background: #141310; border-top: 1px solid rgba(255,255,255,0.08); border-bottom: 1px solid rgba(255,255,255,0.08); padding: 36px 0; }
     .pillars-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
     .pillar { padding: 20px; background: rgba(255,255,255,0.02); border: 1px solid rgba(222,168,132,0.12); }
     .pillar-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; color: var(--ember); margin-bottom: 8px; display: block; }
     .pillar h3 { font-family: var(--serif); font-size: 19px; margin: 0 0 8px; }
     .pillar p { font-size: 13px; line-height: 1.65; color: #b5aea1; margin: 0; }
 
-    /* Shared Sections */
     .section { padding: 80px 0; }
     .kicker { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em; color: var(--ember); margin-bottom: 12px; }
     .section h2 { font-family: var(--serif); font-size: clamp(32px, 4.2vw, 52px); line-height: 1.08; font-weight: 500; margin: 0 0 18px; }
     .section h2 em { color: var(--ember); font-style: italic; }
 
-    /* Story */
     .story { background: #0f0e0c; }
     .story-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 48px; align-items: start; }
     .story-lead { font-family: var(--serif); font-style: italic; font-size: 19px; color: #b5aea1; line-height: 1.5; }
     .story-right p { font-size: 16px; line-height: 1.85; color: var(--body); margin: 0 0 20px; }
     .dropcap::first-letter { float: left; font-family: var(--serif); font-size: 56px; line-height: 0.85; padding: 4px 12px 0 0; color: var(--ember); }
-    .pullquote {
-      margin: 30px 0 0; padding: 22px 24px; background: #171512; border-left: 3px solid var(--rust);
-      font-family: var(--serif); font-size: 24px; line-height: 1.35; color: #f5efe4;
-    }
-    .pullquote span {
-      display: block; margin-top: 10px; font-family: var(--mono); font-size: 10px;
-      letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted);
-    }
+    .pullquote { margin: 30px 0 0; padding: 22px 24px; background: #171512; border-left: 3px solid var(--rust); font-family: var(--serif); font-size: 24px; line-height: 1.35; color: #f5efe4; }
+    .pullquote span { display: block; margin-top: 10px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
 
-    /* Books */
     .books { background: var(--bg-alt); border-top: 1px solid rgba(255,255,255,0.06); }
     .section-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; margin-bottom: 40px; }
     .section-sub { max-width: 340px; font-size: 14px; line-height: 1.6; color: var(--muted); margin: 0; }
     .books-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; }
     .book-card { display: flex; flex-direction: column; background: var(--card); border: 1px solid rgba(222,168,132,0.2); overflow: hidden; }
-    .book-media {
-      position: relative; padding: 28px;
-      background: radial-gradient(circle at center, #25221c, #12110e);
-      display: grid; place-items: center; border-bottom: 1px solid rgba(255,255,255,0.08);
-    }
+    .book-media { position: relative; padding: 28px; background: radial-gradient(circle at center, #25221c, #12110e); display: grid; place-items: center; border-bottom: 1px solid rgba(255,255,255,0.08); }
     .book-num { position: absolute; top: 14px; left: 16px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em; color: var(--ember); }
-    .book-cover { width: min(260px, 82%); height: auto; max-height: 340px; object-fit: contain; display: block; box-shadow: 0 20px 45px rgba(0,0,0,0.65); }
+    .book-cover { width: min(260px, 85%); height: auto; max-height: 340px; object-fit: contain; display: block; box-shadow: 0 20px 45px rgba(0,0,0,0.65); }
+    .book-cover.crop-bars { aspect-ratio: 1 / 1; object-fit: cover; object-position: center; }
     .book-body { padding: 28px; display: flex; flex-direction: column; flex: 1; }
     .book-eyebrow { font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em; color: var(--ember); margin-bottom: 8px; }
     .book-body h3 { font-family: var(--serif); font-size: 30px; margin: 0 0 6px; }
@@ -211,133 +99,63 @@
     .book-desc { font-size: 14px; line-height: 1.75; color: var(--body); margin: 0 0 18px; flex: 1; }
     .book-warning { font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em; color: #ea8c68; margin: 0 0 20px; }
     .book-actions { display: flex; flex-wrap: wrap; gap: 12px; }
-
-    .teaser-banner {
-      margin-top: 28px; padding: 26px 28px;
-      background: linear-gradient(90deg, rgba(201,74,48,0.14), rgba(25,24,20,0.9));
-      border: 1px solid rgba(201,74,48,0.4);
-      display: flex; align-items: center; justify-content: space-between; gap: 24px;
-    }
+    .teaser-banner { margin-top: 28px; padding: 26px 28px; background: linear-gradient(90deg, rgba(201,74,48,0.14), rgba(25,24,20,0.9)); border: 1px solid rgba(201,74,48,0.4); display: flex; align-items: center; justify-content: space-between; gap: 24px; }
     .teaser-banner h4 { font-family: var(--serif); font-size: 24px; margin: 0 0 6px; }
     .teaser-banner p { font-size: 14px; color: #c8c1b4; margin: 0; }
 
-    /* Authors & Gallery */
     .authors { background: var(--bg); }
     .authors-top { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 44px; margin-bottom: 44px; }
     .authors-bio p { font-size: 15px; line-height: 1.8; color: var(--body); margin: 0 0 16px; }
     .endurance { font-family: var(--serif); font-style: italic; font-size: 22px !important; color: var(--ember) !important; margin: 20px 0 !important; }
     .authors-note { color: var(--text) !important; }
-
     .gallery { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
-    .gallery-item {
-      position: relative; margin: 0; aspect-ratio: 4 / 5; overflow: hidden;
-      background: #171613; border: 1px solid rgba(255,255,255,0.08);
-    }
+    .gallery-item { position: relative; margin: 0; aspect-ratio: 4 / 5; overflow: hidden; background: #171613; border: 1px solid rgba(255,255,255,0.08); }
     .gallery-item.is-featured { grid-column: span 2; aspect-ratio: 8 / 5; }
     .gallery-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s; }
     .gallery-item:hover img { transform: scale(1.04); }
-    .gallery-item figcaption {
-      position: absolute; inset: auto 0 0; padding: 28px 12px 10px;
-      background: linear-gradient(transparent, rgba(0,0,0,0.85));
-      font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text);
-    }
+    .gallery-item figcaption { position: absolute; inset: auto 0 0; padding: 28px 12px 10px; background: linear-gradient(transparent, rgba(0,0,0,0.85)); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text); }
 
-    /* Contact */
     .contact { background: #141310; border-top: 1px solid rgba(255,255,255,0.08); }
     .contact-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 44px; align-items: start; }
     .contact-copy p { font-size: 15px; line-height: 1.75; color: #c8c1b4; }
     .direct-email a { color: var(--ember); border-bottom: 1px solid rgba(232,137,98,0.45); }
     .contact-card { padding: 28px; background: #1b1a15; border: 1px solid rgba(222,168,132,0.22); }
-    .contact-card label {
-      display: block; font-family: var(--mono); font-size: 11px; text-transform: uppercase;
-      letter-spacing: 0.14em; color: #cfc8ba; margin-bottom: 10px;
-    }
-    .contact-card textarea {
-      width: 100%; min-height: 140px; padding: 14px; background: #0e0e0c;
-      border: 1px solid rgba(255,255,255,0.16); color: var(--text); font-size: 14px;
-      line-height: 1.6; resize: vertical; margin-bottom: 16px;
-    }
+    .contact-card label { display: block; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.14em; color: #cfc8ba; margin-bottom: 10px; }
+    .contact-card textarea { width: 100%; min-height: 140px; padding: 14px; background: #0e0e0c; border: 1px solid rgba(255,255,255,0.16); color: var(--text); font-size: 14px; line-height: 1.6; resize: vertical; margin-bottom: 16px; }
     .contact-actions { display: flex; flex-wrap: wrap; gap: 12px; }
     .feedback { margin: 12px 0 0; font-size: 13px; color: var(--ember); min-height: 18px; }
 
-    /* Footer */
-    .footer { background: #090908; border-top: 1px solid rgba(255,255,255,0.08); padding: 26px 0; }
+    .footer { background: #090908; border-top: 1px solid rgba(255,255,255,0.08); padding: 26px 0 84px; }
     .footer-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
     .footer-brand { display: inline-flex; align-items: center; gap: 12px; font-size: 13px; color: #cfc8ba; }
     .copyright { font-size: 12px; color: #8f887b; }
     .back-top { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ember); }
 
-    /* Live Transmission Terminal */
-    .comms {
-      position: fixed; z-index: 40; right: 16px; bottom: 16px;
-      display: flex; flex-direction: column; align-items: flex-end; gap: 10px;
-    }
-    .comms-btn {
-      display: inline-flex; align-items: center; gap: 9px; padding: 11px 16px;
-      background: #171612; color: var(--text);
-      border: 1px solid rgba(208, 92, 62, 0.75); border-left: 3px solid #d14d32;
-      box-shadow: 0 12px 30px rgba(0,0,0,0.6);
-      font-family: var(--mono); font-size: 11px; font-weight: 700;
-      text-transform: uppercase; letter-spacing: 0.12em; cursor: pointer;
-    }
-    .live-dot {
-      width: 7px; height: 7px; border-radius: 50%; background: #e04f33;
-      box-shadow: 0 0 8px rgba(224,79,51,0.95); animation: pulse 1.5s infinite;
-    }
-    .comms-panel {
-      width: min(370px, calc(100vw - 32px)); max-height: min(560px, calc(100dvh - 96px));
-      display: none; flex-direction: column; position: relative; overflow: hidden;
-      background: #141310; border: 1px solid rgba(208,92,62,0.6); border-top: 3px solid var(--rust);
-      box-shadow: 0 24px 65px rgba(0,0,0,0.82);
-    }
+    .comms { position: fixed; z-index: 40; right: 14px; bottom: 14px; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
+    .comms-btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; background: #171612; color: var(--text); border: 1px solid rgba(208,92,62,0.8); border-left: 3px solid #d14d32; box-shadow: 0 12px 30px rgba(0,0,0,0.7); font-family: var(--mono); font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; cursor: pointer; }
+    .live-dot { width: 7px; height: 7px; border-radius: 50%; background: #e04f33; box-shadow: 0 0 8px rgba(224,79,51,0.95); animation: pulse 1.5s infinite; }
+    .comms-panel { width: min(370px, calc(100vw - 28px)); max-height: min(560px, calc(100dvh - 96px)); display: none; flex-direction: column; position: relative; overflow: hidden; background: #141310; border: 1px solid rgba(208,92,62,0.6); border-top: 3px solid var(--rust); box-shadow: 0 24px 65px rgba(0,0,0,0.85); }
     .comms-panel.is-open { display: flex; }
-    .comms-panel::before {
-      content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 2; opacity: 0.45;
-      background: repeating-linear-gradient(0deg, rgba(0,0,0,0.25) 0px, rgba(0,0,0,0.25) 1px, transparent 1px, transparent 3px);
-    }
-    .comms-head {
-      display: flex; align-items: center; gap: 12px; padding: 14px 16px;
-      background: rgba(0,0,0,0.45); border-bottom: 1px solid rgba(208,92,62,0.25);
-      position: relative; z-index: 1;
-    }
-    .comms-beacon {
-      width: 28px; height: 28px; border: 1px solid #b84f37; transform: rotate(45deg);
-      display: grid; place-items: center; flex-shrink: 0;
-    }
+    .comms-panel::before { content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 2; opacity: 0.45; background: repeating-linear-gradient(0deg, rgba(0,0,0,0.25) 0px, rgba(0,0,0,0.25) 1px, transparent 1px, transparent 3px); }
+    .comms-head { display: flex; align-items: center; gap: 10px; padding: 14px; background: rgba(0,0,0,0.45); border-bottom: 1px solid rgba(208,92,62,0.25); position: relative; z-index: 1; }
+    .comms-beacon { width: 26px; height: 26px; border: 1px solid #b84f37; transform: rotate(45deg); display: grid; place-items: center; flex-shrink: 0; }
     .comms-beacon span { width: 8px; height: 8px; background: #d94e34; animation: pulse 1.5s infinite; }
-    .comms-overline { display: block; font-family: var(--mono); font-size: 9px; letter-spacing: 0.16em; color: #e46f50; }
-    .comms-head h2 { font-family: var(--serif); font-size: 18px; margin: 2px 0 0; color: #f3eadc; }
-    .comms-close {
-      margin-left: auto; width: 32px; height: 32px; display: grid; place-items: center;
-      background: rgba(255,255,255,0.04); border: 1px solid rgba(208,92,62,0.3); color: #cfc8ba; cursor: pointer;
-    }
-    .comms-sub {
-      margin: 0; padding: 8px 16px; font-family: var(--mono); font-size: 9px; color: #9c9689;
-      border-bottom: 1px solid rgba(255,255,255,0.08); position: relative; z-index: 1;
-    }
-    .comms-log {
-      flex: 1; overflow-y: auto; padding: 14px; display: flex; flex-direction: column; gap: 10px;
-      position: relative; z-index: 1;
-    }
+    .comms-overline { display: block; font-family: var(--mono); font-size: 8px; letter-spacing: 0.16em; color: #e46f50; }
+    .comms-head h2 { font-family: var(--serif); font-size: 17px; margin: 2px 0 0; color: #f3eadc; }
+    .comms-head-actions { margin-left: auto; display: flex; align-items: center; gap: 6px; }
+    .comms-mute { padding: 6px 8px; font-family: var(--mono); font-size: 9px; letter-spacing: 0.08em; background: rgba(208,92,62,0.12); border: 1px solid rgba(208,92,62,0.35); color: #e88962; cursor: pointer; }
+    .comms-close { width: 30px; height: 30px; display: grid; place-items: center; background: rgba(255,255,255,0.04); border: 1px solid rgba(208,92,62,0.3); color: #cfc8ba; cursor: pointer; }
+    .comms-sub { margin: 0; padding: 8px 14px; font-family: var(--mono); font-size: 9px; color: #9c9689; border-bottom: 1px solid rgba(255,255,255,0.08); position: relative; z-index: 1; }
+    .comms-log { flex: 1; overflow-y: auto; padding: 14px; display: flex; flex-direction: column; gap: 10px; position: relative; z-index: 1; }
     .comms-msg { max-width: 90%; margin: 0; padding: 10px 12px; font-size: 12px; line-height: 1.55; }
     .comms-msg.guide { align-self: flex-start; background: rgba(255,255,255,0.05); border-left: 2px solid #cf5338; color: #ebe3d5; }
     .comms-msg.reader { align-self: flex-end; background: #c96848; color: #161310; font-weight: 600; }
     .comms-prompts { display: flex; flex-wrap: wrap; gap: 6px; padding: 4px 14px 10px; position: relative; z-index: 1; }
-    .comms-prompts button {
-      padding: 6px 8px; font-family: var(--mono); font-size: 9px;
-      background: rgba(208,92,62,0.08); border: 1px solid rgba(208,92,62,0.35); color: #ded5c5; cursor: pointer;
-    }
-    .comms-form {
-      display: flex; margin: 0 14px 14px; border: 1px solid rgba(208,92,62,0.45);
-      background: #0a0a08; position: relative; z-index: 1;
-    }
-    .comms-form input {
-      flex: 1; width: 0; padding: 10px 12px; background: transparent; border: 0;
-      color: var(--text); font-family: var(--mono); font-size: 12px; outline: none;
-    }
+    .comms-prompts button { padding: 6px 8px; font-family: var(--mono); font-size: 9px; background: rgba(208,92,62,0.08); border: 1px solid rgba(208,92,62,0.35); color: #ded5c5; cursor: pointer; }
+    .comms-form { display: flex; margin: 0 14px 14px; border: 1px solid rgba(208,92,62,0.45); background: #0a0a08; position: relative; z-index: 1; }
+    .comms-form input { flex: 1; width: 0; padding: 10px 12px; background: transparent; border: 0; color: var(--text); font-family: var(--mono); font-size: 12px; outline: none; }
     .comms-form button { width: 42px; display: grid; place-items: center; background: var(--rust); border: 0; color: #fff; cursor: pointer; }
     .comms-form button:disabled { opacity: 0.35; cursor: not-allowed; }
-
     @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.35; transform: scale(0.85); } }
 
     @media (max-width: 900px) {
@@ -349,11 +167,7 @@
     }
     @media (max-width: 720px) {
       .menu-btn { display: grid; }
-      .nav {
-        display: none; position: absolute; top: 100%; left: 0; right: 0;
-        flex-direction: column; align-items: flex-start; gap: 16px;
-        padding: 20px 5%; background: #141310; border-bottom: 1px solid var(--border);
-      }
+      .nav { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; align-items: flex-start; gap: 16px; padding: 20px 5%; background: #141310; border-bottom: 1px solid var(--border); }
       .nav.is-open { display: flex; }
       .hero { padding: 36px 0 54px; }
       .section { padding: 56px 0; }
@@ -370,7 +184,6 @@
         <small>Jannell &amp; Eric Turner</small>
       </span>
     </a>
-
     <nav class="nav" id="mainNav" aria-label="Main navigation">
       <a href="#story">The Premise</a>
       <a href="#books">The Books</a>
@@ -378,7 +191,6 @@
       <a href="#contact">Contact</a>
       <a href="#books" class="nav-cta">Get the Books &rarr;</a>
     </nav>
-
     <button class="menu-btn" id="menuBtn" type="button" aria-label="Toggle menu">&#9776;</button>
   </header>
 
@@ -403,10 +215,9 @@
           <span><strong>Paperback</strong> &amp; Kindle</span>
         </div>
       </div>
-
       <div class="cover-stage">
-        <div class="cover-badge">BOOK ONE &middot; SERIES STARTER</div>
-        <img src="./IMG_1550.png" alt="Within These Walls Book One" class="cover-img" />
+        <div class="cover-badge">THE SERIES &middot; BOOKS 1 &amp; 2 AVAILABLE NOW</div>
+        <img src="./IMG_0054.jpeg" alt="Within These Walls Christian suspense series" class="cover-img" />
         <div class="cover-caption">
           <span>Within These Walls</span>
           <span>Jannell &amp; Eric Turner</span>
@@ -475,7 +286,7 @@
         <article class="book-card">
           <div class="book-media">
             <span class="book-num">BOOK 01</span>
-            <img src="./IMG_1550.png" alt="Within These Walls Book One" class="book-cover" loading="lazy" />
+            <img src="./IMG_1550.png" alt="Within These Walls Book One" class="book-cover crop-bars" loading="lazy" />
           </div>
           <div class="book-body">
             <span class="book-eyebrow">START HERE &middot; SERIES OPENER</span>
@@ -555,16 +366,15 @@
       </div>
 
       <div class="gallery" aria-label="Photos of the authors and books">
-        <figure class="gallery-item is-featured"><img src="./IMG_0054.jpeg" alt="Within These Walls series photo 1" loading="lazy" /><figcaption>Within These Walls Series</figcaption></figure>
-        <figure class="gallery-item"><img src="./IMG_0270.jpeg" alt="Within These Walls series photo 2" loading="lazy" /><figcaption>Jannell &amp; Eric Turner</figcaption></figure>
-        <figure class="gallery-item"><img src="./IMG_0279.jpeg" alt="Within These Walls series photo 3" loading="lazy" /><figcaption>Book One &amp; Two</figcaption></figure>
-        <figure class="gallery-item"><img src="./IMG_0305.jpeg" alt="Within These Walls series photo 4" loading="lazy" /><figcaption>Behind the Scenes</figcaption></figure>
-        <figure class="gallery-item"><img src="./IMG_1550.png" alt="Within These Walls series photo 5" loading="lazy" /><figcaption>Within These Walls</figcaption></figure>
-        <figure class="gallery-item"><img src="./IMG_2338.jpeg" alt="Within These Walls series photo 6" loading="lazy" /><figcaption>The Authors</figcaption></figure>
-        <figure class="gallery-item"><img src="./IMG_6750.jpeg" alt="Within These Walls series photo 7" loading="lazy" /><figcaption>Some Walls Protect</figcaption></figure>
-        <figure class="gallery-item"><img src="./IMG_8685.jpeg" alt="Within These Walls series photo 8" loading="lazy" /><figcaption>Faith &amp; Courage</figcaption></figure>
-        <figure class="gallery-item"><img src="./IMG_9181.jpeg" alt="Within These Walls series photo 9" loading="lazy" /><figcaption>Strangers Are Lurking</figcaption></figure>
-        <figure class="gallery-item"><img src="./IMG_9216.jpeg" alt="Within These Walls series photo 10" loading="lazy" /><figcaption>Jannell &amp; Eric</figcaption></figure>
+        <figure class="gallery-item is-featured"><img src="./IMG_0054.jpeg" alt="Within These Walls series" loading="lazy" /><figcaption>Within These Walls Series</figcaption></figure>
+        <figure class="gallery-item"><img src="./IMG_0270.jpeg" alt="Jannell and Eric Turner" loading="lazy" /><figcaption>Jannell &amp; Eric Turner</figcaption></figure>
+        <figure class="gallery-item"><img src="./IMG_0279.jpeg" alt="Within These Walls books" loading="lazy" /><figcaption>Book One &amp; Two</figcaption></figure>
+        <figure class="gallery-item"><img src="./IMG_0305.jpeg" alt="Within These Walls behind the scenes" loading="lazy" /><figcaption>Behind the Scenes</figcaption></figure>
+        <figure class="gallery-item"><img src="./IMG_2338.jpeg" alt="The authors" loading="lazy" /><figcaption>The Authors</figcaption></figure>
+        <figure class="gallery-item"><img src="./IMG_6750.jpeg" alt="Some walls protect" loading="lazy" /><figcaption>Some Walls Protect</figcaption></figure>
+        <figure class="gallery-item"><img src="./IMG_8685.jpeg" alt="Faith and courage" loading="lazy" /><figcaption>Faith &amp; Courage</figcaption></figure>
+        <figure class="gallery-item"><img src="./IMG_9181.jpeg" alt="Strangers Are Lurking" loading="lazy" /><figcaption>Strangers Are Lurking</figcaption></figure>
+        <figure class="gallery-item"><img src="./IMG_9216.jpeg" alt="Jannell and Eric" loading="lazy" /><figcaption>Jannell &amp; Eric</figcaption></figure>
       </div>
     </div>
   </section>
@@ -611,7 +421,10 @@
           <span class="comms-overline">LIVE TRANSMISSION // ACTIVE</span>
           <h2>Field Comms Terminal</h2>
         </div>
-        <button class="comms-close" id="commsClose" type="button" aria-label="Close transmission">&times;</button>
+        <div class="comms-head-actions">
+          <button class="comms-mute" id="commsMute" type="button">SFX: ON</button>
+          <button class="comms-close" id="commsClose" type="button" aria-label="Close transmission">&times;</button>
+        </div>
       </div>
       <p class="comms-sub">Encrypted archive &mdash; verified facts only. No spoilers.</p>
       <div class="comms-log" id="commsLog">
@@ -638,44 +451,93 @@
   <script>
     document.getElementById('yr').textContent = new Date().getFullYear();
 
-    // Mobile nav
     const menuBtn = document.getElementById('menuBtn');
     const mainNav = document.getElementById('mainNav');
     menuBtn.addEventListener('click', () => mainNav.classList.toggle('is-open'));
     mainNav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mainNav.classList.remove('is-open')));
 
-    // Contact form
     const msgInput = document.getElementById('readerMessage');
     const emailBtn = document.getElementById('emailBtn');
     const copyBtn = document.getElementById('copyBtn');
     const copyFeedback = document.getElementById('copyFeedback');
-
     function syncContact() {
       const val = msgInput.value.trim();
       const empty = !val;
       copyBtn.disabled = empty;
       emailBtn.classList.toggle('is-disabled', empty);
-      emailBtn.href = 'mailto:Jannelldt@gmail.com?subject=' +
-        encodeURIComponent('A note about Within These Walls') +
-        '&body=' + encodeURIComponent(val);
+      emailBtn.href = 'mailto:Jannelldt@gmail.com?subject=' + encodeURIComponent('A note about Within These Walls') + '&body=' + encodeURIComponent(val);
     }
     msgInput.addEventListener('input', () => { copyFeedback.textContent = ''; syncContact(); });
     emailBtn.addEventListener('click', (e) => { if (!msgInput.value.trim()) e.preventDefault(); });
     copyBtn.addEventListener('click', async () => {
       const val = msgInput.value.trim();
       if (!val) return;
-      try {
-        await navigator.clipboard.writeText(val);
-        copyFeedback.textContent = 'Message copied to clipboard.';
-      } catch {
-        copyFeedback.textContent = 'Clipboard blocked — tap Open Email App instead.';
-      }
+      try { await navigator.clipboard.writeText(val); copyFeedback.textContent = 'Message copied to clipboard.'; }
+      catch { copyFeedback.textContent = 'Clipboard blocked — tap Open Email App instead.'; }
     });
 
-    // Live Transmission terminal
+    // Bunker radio sound synthesizer
+    let audioCtx = null;
+    let sfxEnabled = true;
+    function getCtx() {
+      if (!audioCtx) {
+        const Ctx = window.AudioContext || window.webkitAudioContext;
+        if (Ctx) audioCtx = new Ctx();
+      }
+      if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+      return audioCtx;
+    }
+    function playStatic(ctx, dur, vol) {
+      const len = Math.floor(ctx.sampleRate * dur);
+      const buf = ctx.createBuffer(1, len, ctx.sampleRate);
+      const data = buf.getChannelData(0);
+      for (let i = 0; i < len; i++) data[i] = (Math.random() * 2 - 1) * (1 - i / len);
+      const src = ctx.createBufferSource();
+      src.buffer = buf;
+      const filter = ctx.createBiquadFilter();
+      filter.type = 'bandpass';
+      filter.frequency.value = 1400;
+      filter.Q.value = 1.2;
+      const gain = ctx.createGain();
+      gain.gain.value = vol;
+      src.connect(filter); filter.connect(gain); gain.connect(ctx.destination);
+      src.start();
+    }
+    function playTone(ctx, freq, delay, dur, vol) {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'square';
+      osc.frequency.value = freq;
+      const t = ctx.currentTime + delay;
+      gain.gain.setValueAtTime(0.0001, t);
+      gain.gain.exponentialRampToValueAtTime(vol, t + 0.015);
+      gain.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+      osc.connect(gain); gain.connect(ctx.destination);
+      osc.start(t); osc.stop(t + dur + 0.02);
+    }
+    function playRadio(kind) {
+      if (!sfxEnabled) return;
+      try {
+        const ctx = getCtx();
+        if (!ctx) return;
+        if (kind === 'open') {
+          playStatic(ctx, 0.22, 0.16);
+          playTone(ctx, 880, 0.06, 0.09, 0.06);
+          playTone(ctx, 1320, 0.16, 0.12, 0.06);
+        } else if (kind === 'reply') {
+          playStatic(ctx, 0.14, 0.12);
+          playTone(ctx, 1046, 0.03, 0.07, 0.05);
+          playTone(ctx, 784, 0.11, 0.09, 0.05);
+        } else {
+          playStatic(ctx, 0.09, 0.08);
+        }
+      } catch {}
+    }
+
     const commsPanel = document.getElementById('commsPanel');
     const commsToggle = document.getElementById('commsToggle');
     const commsClose = document.getElementById('commsClose');
+    const commsMute = document.getElementById('commsMute');
     const commsBtnLabel = document.getElementById('commsBtnLabel');
     const commsLog = document.getElementById('commsLog');
     const commsForm = document.getElementById('commsForm');
@@ -685,9 +547,16 @@
     function setComms(open) {
       commsPanel.classList.toggle('is-open', open);
       commsBtnLabel.textContent = open ? 'End Comms' : 'Live Comms';
+      if (open) playRadio('open');
+      else playRadio('close');
     }
     commsToggle.addEventListener('click', () => setComms(!commsPanel.classList.contains('is-open')));
     commsClose.addEventListener('click', () => setComms(false));
+    commsMute.addEventListener('click', () => {
+      sfxEnabled = !sfxEnabled;
+      commsMute.textContent = sfxEnabled ? 'SFX: ON' : 'MUTED';
+      if (sfxEnabled) playRadio('open');
+    });
 
     function answer(qText) {
       const q = qText.toLowerCase();
@@ -725,6 +594,7 @@
       commsLog.scrollTop = commsLog.scrollHeight;
       commsInput.value = '';
       commsSend.disabled = true;
+      playRadio('reply');
     }
 
     commsInput.addEventListener('input', () => { commsSend.disabled = !commsInput.value.trim(); });
