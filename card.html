@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Brown &amp; Gold Preview Card Maker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Playfair+Display:ital,wght@0,600;1,500&display=swap" rel="stylesheet" />
+  <style>
+    body { margin: 0; padding: 24px 16px; background: #120d0a; color: #f3df9e; font-family: -apple-system, sans-serif; text-align: center; }
+    .wrap { max-width: 680px; margin: 0 auto; }
+    h1 { font-size: 20px; margin: 0 0 8px; }
+    p { font-size: 13px; color: #cbb682; margin: 0 0 16px; line-height: 1.5; }
+    input { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #8a6a28; background: #1e1510; color: #f6e29c; font-size: 14px; margin-bottom: 14px; box-sizing: border-box; }
+    .btn { display: inline-block; width: 100%; padding: 15px; border: 0; border-radius: 8px; background: linear-gradient(135deg, #d4af37, #f5df96, #b68928); color: #1b1109; font-weight: 800; font-size: 15px; cursor: pointer; text-decoration: none; margin-bottom: 16px; }
+    img { width: 100%; height: auto; border-radius: 10px; border: 1px solid #6e531d; display: block; box-shadow: 0 18px 45px rgba(0,0,0,0.65); }
+    canvas { display: none; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Brown &amp; Gold Link Card</h1>
+    <p>Edit the URL below if needed, then tap <strong>Download preview.png</strong> (or press &amp; hold the card image to save to Photos).</p>
+    <input id="urlInput" type="text" value="https://cipherstudiosolutions.github.io/within-these-walls/" />
+    <a id="dlBtn" class="btn" download="preview.png" href="#">Download preview.png</a>
+    <img id="outImg" alt="Within These Walls brown and gold preview card" />
+    <canvas id="c" width="1200" height="630"></canvas>
+  </div>
+  <script>
+    const c = document.getElementById('c');
+    const ctx = c.getContext('2d');
+    const outImg = document.getElementById('outImg');
+    const dlBtn = document.getElementById('dlBtn');
+    const urlInput = document.getElementById('urlInput');
+
+    function draw() {
+      const w = 1200, h = 630;
+      const bg = ctx.createLinearGradient(0, 0, w, h);
+      bg.addColorStop(0, '#1a100b');
+      bg.addColorStop(0.5, '#2b1b12');
+      bg.addColorStop(1, '#140c08');
+      ctx.fillStyle = bg;
+      ctx.fillRect(0, 0, w, h);
+
+      const glow = ctx.createRadialGradient(w / 2, h / 2, 40, w / 2, h / 2, 540);
+      glow.addColorStop(0, 'rgba(212, 175, 55, 0.16)');
+      glow.addColorStop(1, 'rgba(0, 0, 0, 0)');
+      ctx.fillStyle = glow;
+      ctx.fillRect(0, 0, w, h);
+
+      const gold = ctx.createLinearGradient(180, 120, 1020, 500);
+      gold.addColorStop(0, '#b58624');
+      gold.addColorStop(0.35, '#f6e199');
+      gold.addColorStop(0.65, '#d4af37');
+      gold.addColorStop(1, '#9f7219');
+
+      ctx.strokeStyle = gold;
+      ctx.lineWidth = 3;
+      ctx.strokeRect(32, 32, w - 64, h - 64);
+      ctx.lineWidth = 1;
+      ctx.strokeStyle = 'rgba(212, 175, 55, 0.45)';
+      ctx.strokeRect(46, 46, w - 92, h - 92);
+
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#d7b45a';
+      ctx.font = '600 22px Cinzel, Georgia, serif';
+      ctx.fillText('JANNELL & ERIC TURNER  \u00B7  CHRISTIAN SUSPENSE', w / 2, 162);
+
+      ctx.fillStyle = 'rgba(212, 175, 55, 0.5)';
+      ctx.fillRect(w / 2 - 90, 194, 180, 2);
+
+      ctx.fillStyle = gold;
+      ctx.font = '700 84px Cinzel, "Playfair Display", Georgia, serif';
+      ctx.fillText('WITHIN THESE WALLS', w / 2, 305);
+
+      ctx.fillStyle = '#e8cf86';
+      ctx.font = 'italic 500 32px "Playfair Display", Georgia, serif';
+      ctx.fillText('Behind the Walls, Nothing Is What It Seems', w / 2, 372);
+
+      const urlText = (urlInput.value || '').trim() || 'https://cipherstudiosolutions.github.io/within-these-walls/';
+      ctx.fillStyle = 'rgba(212, 175, 55, 0.12)';
+      ctx.strokeStyle = 'rgba(212, 175, 55, 0.6)';
+      ctx.lineWidth = 1.5;
+      ctx.fillRect(140, 444, w - 280, 68);
+      ctx.strokeRect(140, 444, w - 280, 68);
+
+      ctx.fillStyle = '#f5df96';
+      ctx.font = '600 26px -apple-system, BlinkMacSystemFont, sans-serif';
+      ctx.fillText(urlText, w / 2, 487, w - 320);
+
+      const dataUrl = c.toDataURL('image/png');
+      outImg.src = dataUrl;
+      dlBtn.href = dataUrl;
+    }
+
+    urlInput.addEventListener('input', draw);
+    (document.fonts ? document.fonts.ready : Promise.resolve()).then(draw);
+    draw();
+  </script>
+</body>
+</html>
