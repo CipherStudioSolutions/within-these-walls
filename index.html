@@ -16,72 +16,293 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..700&family=JetBrains+Mono:wght@400;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet" />
   <style>
-    :root {
-      --bg: #0c0c0a; --bg-alt: #13120f; --card: #191814; --text: #f2ece1;
-      --muted: #a9a295; --body: #d6d0c4; --ember: #e88962; --rust: #c94a30;
-      --rust-bright: #dd583d; --border: rgba(222,168,132,0.18);
-      --serif: 'Playfair Display', Georgia, serif;
-      --sans: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-      --mono: 'JetBrains Mono', Menlo, monospace;
+    :root{--bg:#0c0c0a;--bg-alt:#13120f;--card:#191814;--text:#f2ece1;--muted:#a9a295;--body:#d6d0c4;--ember:#e88962;--rust:#c94a30;--rust-b:#dd583d;--border:rgba(222,168,132,.18);--serif:'Playfair Display',Georgia,serif;--sans:'DM Sans',-apple-system,BlinkMacSystemFont,sans-serif;--mono:'JetBrains Mono',Menlo,monospace}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}a{color:inherit;text-decoration:none}button,textarea,input{font:inherit}.container{width:min(1140px,90%);margin:0 auto}
+    .header{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:14px 5%;background:rgba(12,12,10,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}.brand{display:inline-flex;align-items:center;gap:12px}.monogram{width:40px;height:40px;display:grid;place-items:center;border:1px solid #d45b39;background:rgba(212,91,57,.12);font-family:var(--serif);font-weight:600;font-size:14px;letter-spacing:.08em;flex-shrink:0}.brand-text{display:flex;flex-direction:column;line-height:1.2}.brand-text strong{font-family:var(--serif);font-size:15px;font-weight:600;color:#f5efe4}.brand-text small{font-size:10px;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);margin-top:2px}.nav{display:flex;align-items:center;gap:26px}.nav a{font-size:12px;text-transform:uppercase;letter-spacing:.12em;font-weight:600;color:#cfc8ba;transition:color .2s}.nav a:hover{color:var(--ember)}.nav-cta{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;background:var(--rust);color:#fff!important;border:1px solid #e06d53}.nav-cta:hover{background:var(--rust-b)}.menu-btn{display:none;width:42px;height:42px;background:transparent;border:1px solid var(--border);color:var(--text);place-items:center;cursor:pointer}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 18px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;border:1px solid transparent;cursor:pointer;transition:transform .2s,background .2s,border-color .2s}.btn:hover:not(:disabled):not(.is-disabled){transform:translateY(-2px)}.btn-primary{background:var(--rust);color:#fff;border-color:#e47157;box-shadow:0 10px 28px rgba(201,74,48,.28)}.btn-primary:hover:not(.is-disabled){background:var(--rust-b)}.btn-ghost{background:rgba(255,255,255,.05);color:var(--text);border-color:rgba(242,236,225,.25)}.btn-ghost:hover{background:rgba(255,255,255,.1);border-color:var(--ember)}.btn-outline{background:transparent;color:var(--text);border-color:rgba(222,168,132,.38)}.btn-outline:hover:not(:disabled){background:rgba(212,91,57,.14);border-color:var(--ember)}.btn:disabled,.btn.is-disabled{opacity:.4;cursor:not-allowed}
+    .hero{position:relative;padding:64px 0 72px;background:linear-gradient(160deg,#12110e 0%,#0c0c0a 60%,#16110e 100%);overflow:hidden}.hero-glow{position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 76% 38%,rgba(201,74,48,.22),transparent 48%)}.hero-grid{position:absolute;inset:0;pointer-events:none;opacity:.25;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:48px 48px}.hero-inner{position:relative;z-index:1;display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}.tag{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border:1px solid rgba(212,91,57,.45);background:rgba(212,91,57,.1);color:#ea8c68;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase}.hero h1{font-family:var(--serif);font-size:clamp(40px,5.5vw,72px);line-height:1.04;font-weight:500;margin:20px 0 18px;letter-spacing:-.02em}.hero h1 em{color:var(--ember);font-style:italic}.hero-sub{font-size:16px;line-height:1.7;color:#c8c1b4;max-width:540px;margin:0 0 28px}.hero-actions{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:30px}.hero-meta{display:flex;flex-wrap:wrap;gap:22px;padding-top:22px;border-top:1px solid rgba(255,255,255,.1);font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}.hero-meta strong{color:var(--text);margin-right:4px}
+    .cover-stage{padding:18px;background:#161512;border:1px solid rgba(222,168,132,.25);box-shadow:0 28px 70px rgba(0,0,0,.65);max-width:420px;margin-left:auto}.cover-badge{display:inline-block;margin-bottom:12px;font-family:var(--mono);font-size:10px;letter-spacing:.16em;color:#ea8c68}.cover-img{width:100%;height:auto;display:block;object-fit:contain;background:#0c0c0a}.cover-caption{display:flex;justify-content:space-between;gap:10px;margin-top:12px;font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}
+    .pillars{background:#141310;border-top:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08);padding:36px 0}.pillars-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}.pillar{padding:20px;background:rgba(255,255,255,.02);border:1px solid rgba(222,168,132,.12)}.pillar-label{font-family:var(--mono);font-size:10px;letter-spacing:.15em;color:var(--ember);margin-bottom:8px;display:block}.pillar h3{font-family:var(--serif);font-size:19px;margin:0 0 8px}.pillar p{font-size:13px;line-height:1.65;color:#b5aea1;margin:0}
+    .section{padding:80px 0}.kicker{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.18em;color:var(--ember);margin-bottom:12px}.section h2{font-family:var(--serif);font-size:clamp(32px,4.2vw,52px);line-height:1.08;font-weight:500;margin:0 0 18px}.section h2 em{color:var(--ember);font-style:italic}
+    .story{background:#0f0e0c}.story-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:48px;align-items:start}.story-lead{font-family:var(--serif);font-style:italic;font-size:19px;color:#b5aea1;line-height:1.5}.story-right p{font-size:16px;line-height:1.85;color:var(--body);margin:0 0 20px}.dropcap::first-letter{float:left;font-family:var(--serif);font-size:56px;line-height:.85;padding:4px 12px 0 0;color:var(--ember)}.pullquote{margin:30px 0 0;padding:22px 24px;background:#171512;border-left:3px solid var(--rust);font-family:var(--serif);font-size:24px;line-height:1.35;color:#f5efe4}.pullquote span{display:block;margin-top:10px;font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+    .books{background:var(--bg-alt);border-top:1px solid rgba(255,255,255,.06)}.section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:40px}.section-sub{max-width:340px;font-size:14px;line-height:1.6;color:var(--muted);margin:0}.books-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:28px}.book-card{display:flex;flex-direction:column;background:var(--card);border:1px solid rgba(222,168,132,.2);overflow:hidden}.book-media{position:relative;padding:28px;background:radial-gradient(circle at center,#25221c,#12110e);display:grid;place-items:center;border-bottom:1px solid rgba(255,255,255,.08)}.book-num{position:absolute;top:14px;left:16px;font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--ember)}.book-cover{width:min(260px,85%);height:auto;max-height:340px;object-fit:contain;display:block;box-shadow:0 20px 45px rgba(0,0,0,.65)}.book-cover.crop-bars{aspect-ratio:1/1;object-fit:cover;object-position:center}.book-body{padding:28px;display:flex;flex-direction:column;flex:1}.book-eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:.16em;color:var(--ember);margin-bottom:8px}.book-body h3{font-family:var(--serif);font-size:30px;margin:0 0 6px}.book-tagline{font-family:var(--serif);font-style:italic;color:#b5aea1;margin:0 0 16px}.book-desc{font-size:14px;line-height:1.75;color:var(--body);margin:0 0 18px;flex:1}.book-warning{font-family:var(--mono);font-size:10px;letter-spacing:.16em;color:#ea8c68;margin:0 0 20px}.book-actions{display:flex;flex-wrap:wrap;gap:10px}
+    .teaser-banner{margin-top:28px;padding:26px 28px;background:linear-gradient(90deg,rgba(201,74,48,.14),rgba(25,24,20,.9));border:1px solid rgba(201,74,48,.4);display:flex;align-items:center;justify-content:space-between;gap:24px}.teaser-banner h4{font-family:var(--serif);font-size:24px;margin:0 0 6px}.teaser-banner p{font-size:14px;color:#c8c1b4;margin:0}
+    .authors{background:var(--bg)}.authors-top{display:grid;grid-template-columns:.85fr 1.15fr;gap:44px;margin-bottom:44px}.authors-bio p{font-size:15px;line-height:1.8;color:var(--body);margin:0 0 16px}.endurance{font-family:var(--serif);font-style:italic;font-size:22px!important;color:var(--ember)!important;margin:20px 0!important}.authors-note{color:var(--text)!important}
+    .gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;align-items:start}.gallery-item{position:relative;margin:0;aspect-ratio:4/5;overflow:hidden;background:#171613;border:1px solid rgba(255,255,255,.08)}.gallery-item.is-featured{grid-column:span 2;aspect-ratio:auto}.gallery-item img{width:100%;height:100%;object-fit:cover;object-position:center 18%;display:block;transition:transform .5s}.gallery-item.is-featured img{height:auto;object-fit:contain}.gallery-item:hover img{transform:scale(1.03)}.gallery-item figcaption{position:absolute;inset:auto 0 0;padding:28px 12px 10px;background:linear-gradient(transparent,rgba(0,0,0,.85));font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--text)}
+    .contact{background:#141310;border-top:1px solid rgba(255,255,255,.08)}.contact-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:44px;align-items:start}.contact-copy p{font-size:15px;line-height:1.75;color:#c8c1b4}.direct-email a{color:var(--ember);border-bottom:1px solid rgba(232,137,98,.45)}.contact-card{padding:28px;background:#1b1a15;border:1px solid rgba(222,168,132,.22)}.contact-card label{display:block;font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.14em;color:#cfc8ba;margin-bottom:10px}.contact-card textarea{width:100%;min-height:140px;padding:14px;background:#0e0e0c;border:1px solid rgba(255,255,255,.16);color:var(--text);font-size:14px;line-height:1.6;resize:vertical;margin-bottom:16px}.contact-actions{display:flex;flex-wrap:wrap;gap:12px}.feedback{margin:12px 0 0;font-size:13px;color:var(--ember);min-height:18px}
+    .footer{background:#090908;border-top:1px solid rgba(255,255,255,.08);padding:26px 0 84px}.footer-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}.footer-brand{display:inline-flex;align-items:center;gap:12px;font-size:13px;color:#cfc8ba}.copyright{font-size:12px;color:#8f887b}.back-top{display:inline-flex;align-items:center;gap:6px;font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--ember)}
+    .comms{position:fixed;z-index:40;right:14px;bottom:14px;display:flex;flex-direction:column;align-items:flex-end;gap:10px}.comms-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;background:#171612;color:var(--text);border:1px solid rgba(208,92,62,.8);border-left:3px solid #d14d32;box-shadow:0 12px 30px rgba(0,0,0,.7);font-family:var(--mono);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;cursor:pointer}.live-dot{width:7px;height:7px;border-radius:50%;background:#e04f33;box-shadow:0 0 8px rgba(224,79,51,.95);animation:pulse 1.5s infinite}.comms-panel{width:min(370px,calc(100vw - 28px));max-height:min(560px,calc(100dvh - 96px));display:none;flex-direction:column;position:relative;overflow:hidden;background:#141310;border:1px solid rgba(208,92,62,.6);border-top:3px solid var(--rust);box-shadow:0 24px 65px rgba(0,0,0,.85)}.comms-panel.is-open{display:flex}.comms-panel::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:2;opacity:.45;background:repeating-linear-gradient(0deg,rgba(0,0,0,.25) 0,rgba(0,0,0,.25) 1px,transparent 1px,transparent 3px)}.comms-head{display:flex;align-items:center;gap:10px;padding:14px;background:rgba(0,0,0,.45);border-bottom:1px solid rgba(208,92,62,.25);position:relative;z-index:1}.comms-beacon{width:26px;height:26px;border:1px solid #b84f37;transform:rotate(45deg);display:grid;place-items:center;flex-shrink:0}.comms-beacon span{width:8px;height:8px;background:#d94e34;animation:pulse 1.5s infinite}.comms-overline{display:block;font-family:var(--mono);font-size:8px;letter-spacing:.16em;color:#e46f50}.comms-head h2{font-family:var(--serif);font-size:17px;margin:2px 0 0;color:#f3eadc}.comms-head-actions{margin-left:auto;display:flex;align-items:center;gap:6px}.comms-mute{padding:6px 8px;font-family:var(--mono);font-size:9px;letter-spacing:.08em;background:rgba(208,92,62,.12);border:1px solid rgba(208,92,62,.35);color:#e88962;cursor:pointer}.comms-close{width:30px;height:30px;display:grid;place-items:center;background:rgba(255,255,255,.04);border:1px solid rgba(208,92,62,.3);color:#cfc8ba;cursor:pointer}.comms-sub{margin:0;padding:8px 14px;font-family:var(--mono);font-size:9px;color:#9c9689;border-bottom:1px solid rgba(255,255,255,.08);position:relative;z-index:1}.comms-log{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;position:relative;z-index:1}.comms-msg{max-width:90%;margin:0;padding:10px 12px;font-size:12px;line-height:1.55}.comms-msg.guide{align-self:flex-start;background:rgba(255,255,255,.05);border-left:2px solid #cf5338;color:#ebe3d5}.comms-msg.reader{align-self:flex-end;background:#c96848;color:#161310;font-weight:600}.comms-prompts{display:flex;flex-wrap:wrap;gap:6px;padding:4px 14px 10px;position:relative;z-index:1}.comms-prompts button{padding:6px 8px;font-family:var(--mono);font-size:9px;background:rgba(208,92,62,.08);border:1px solid rgba(208,92,62,.35);color:#ded5c5;cursor:pointer}.comms-form{display:flex;margin:0 14px 14px;border:1px solid rgba(208,92,62,.45);background:#0a0a08;position:relative;z-index:1}.comms-form input{flex:1;width:0;padding:10px 12px;background:transparent;border:0;color:var(--text);font-family:var(--mono);font-size:12px;outline:none}.comms-form button{width:42px;display:grid;place-items:center;background:var(--rust);border:0;color:#fff;cursor:pointer}.comms-form button:disabled{opacity:.35;cursor:not-allowed}
+    @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.85)}}
+    @media(max-width:900px){.hero-inner,.story-grid,.books-grid,.authors-top,.contact-grid,.pillars-grid{grid-template-columns:1fr}.gallery{grid-template-columns:repeat(2,1fr)}.gallery-item.is-featured{grid-column:span 2}.cover-stage{margin:0 auto}.section-head,.teaser-banner{flex-direction:column;align-items:flex-start}}
+    @media(max-width:720px){.menu-btn{display:grid}.nav{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:flex-start;gap:16px;padding:20px 5%;background:#141310;border-bottom:1px solid var(--border)}.nav.is-open{display:flex}.hero{padding:36px 0 54px}.section{padding:56px 0}.book-actions .btn{width:100%}}
+  </style>
+</head>
+<body>
+  <header class="header">
+    <a class="brand" href="#top" id="brandLink">
+      <span class="monogram">WTW</span>
+      <span class="brand-text"><strong>Within These Walls</strong><small>Jannell &amp; Eric Turner</small></span>
+    </a>
+    <nav class="nav" id="mainNav" aria-label="Main navigation">
+      <a href="#story">The Premise</a>
+      <a href="#books">The Books</a>
+      <a href="#authors">Authors &amp; Gallery</a>
+      <a href="#contact">Contact</a>
+      <a href="#books" class="nav-cta">Get the Books &rarr;</a>
+    </nav>
+    <button class="menu-btn" id="menuBtn" type="button" aria-label="Toggle menu">&#9776;</button>
+  </header>
+
+  <section class="hero" id="top">
+    <div class="hero-glow" aria-hidden="true"></div>
+    <div class="hero-grid" aria-hidden="true"></div>
+    <div class="container hero-inner">
+      <div>
+        <span class="tag">&#9679; CHRISTIAN SUSPENSE SERIES &middot; BOOKS 1 &amp; 2 OUT NOW</span>
+        <h1>Some walls protect.<br /><em>Others imprison.</em></h1>
+        <p class="hero-sub">A nation teetering on the edge of chaos. A group of strangers locked inside a remote military compound. And an unseen spiritual battle for survival and the soul.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#books">Order Books 1 &amp; 2 &rarr;</a>
+          <a class="btn btn-ghost" href="#story">Read the Premise &darr;</a>
+        </div>
+        <div class="hero-meta">
+          <span><strong>2</strong> Published Books</span>
+          <span><strong>Book 3</strong> On the Way</span>
+          <span><strong>Hardcover</strong>, Paperback &amp; Kindle</span>
+        </div>
+      </div>
+      <div class="cover-stage">
+        <div class="cover-badge">THE SERIES &middot; BOOKS 1 &amp; 2 AVAILABLE NOW</div>
+        <img src="./IMG_0054.jpeg" alt="Jannell and Eric Turner with the Within These Walls series" class="cover-img" />
+        <div class="cover-caption"><span>Within These Walls</span><span>Jannell &amp; Eric Turner</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pillars" aria-label="Series themes">
+    <div class="container pillars-grid">
+      <div class="pillar"><span class="pillar-label">01 / COLLAPSE</span><h3>Martial Law &amp; Lockdown</h3><p>Ordinary people thrust into extraordinary circumstances as government restrictions close in.</p></div>
+      <div class="pillar"><span class="pillar-label">02 / SECRETS</span><h3>Betrayal Behind the Walls</h3><p>When allies blur with enemies inside a sealed compound, survival is only the beginning.</p></div>
+      <div class="pillar"><span class="pillar-label">03 / CONVICTION</span><h3>Faith Under Fire</h3><p>A gripping Christian suspense series asking: how much will you endure for what you believe?</p></div>
+    </div>
+  </section>
+
+  <section class="section story" id="story">
+    <div class="container story-grid">
+      <div>
+        <span class="kicker">01 / THE PREMISE</span>
+        <h2>Safety is a <em>fragile</em> thing.</h2>
+        <p class="story-lead">They thought they were safe. They thought they were prepared.</p>
+      </div>
+      <div class="story-right">
+        <p class="dropcap">In a nation teetering on the edge of chaos, a group of strangers is locked inside a remote military compound. What begins as a mission of protection quickly unravels into something far more dangerous—something spiritual.</p>
+        <p>As tensions rise and secrets come to light, the line between ally and enemy blurs. Loyalties are tested. Faith is shaken. And every decision carries weight, not just for survival, but for the soul.</p>
+        <blockquote class="pullquote">“The real war isn’t just outside—it’s within.”<span>Within These Walls &middot; Book One</span></blockquote>
+      </div>
+    </div>
+  </section>
+
+  <section class="section books" id="books">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <span class="kicker">02 / THE SERIES</span>
+          <h2>Start the <em>Within These Walls</em> series today.</h2>
+        </div>
+        <p class="section-sub">Available in Hardcover, Paperback &amp; Kindle. Read them in order before Book Three arrives.</p>
+      </div>
+
+      <div class="books-grid">
+        <article class="book-card">
+          <div class="book-media">
+            <span class="book-num">BOOK 01</span>
+            <img src="./IMG_1550.png" alt="Within These Walls Book One" class="book-cover crop-bars" loading="lazy" />
+          </div>
+          <div class="book-body">
+            <span class="book-eyebrow">START HERE &middot; SERIES OPENER</span>
+            <h3>Within These Walls</h3>
+            <p class="book-tagline">Behind the Walls, Nothing Is What It Seems</p>
+            <p class="book-desc">A remote military compound becomes a refuge—and a pressure cooker—as a nation teeters toward chaos. With secrets surfacing and unseen forces closing in, survival is only the beginning of the battle.</p>
+            <p class="book-warning">NOT FOR THE FAINT OF HEART.</p>
+            <div class="book-actions">
+              <a class="btn btn-primary" href="https://www.amazon.com/s?i=stripbooks&k=Within+These+Walls+Jannell+Eric+Turner+hardcover" target="_blank" rel="noreferrer">Buy Hardcover &nearr;</a>
+              <a class="btn btn-outline" href="https://www.amazon.com/s?i=stripbooks&k=Within+These+Walls+Jannell+Eric+Turner+paperback" target="_blank" rel="noreferrer">Buy Paperback &nearr;</a>
+              <a class="btn btn-outline" href="https://www.amazon.com/s?i=digital-text&k=Within+These+Walls+Jannell+Eric+Turner" target="_blank" rel="noreferrer">Kindle Edition &nearr;</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="book-card">
+          <div class="book-media">
+            <span class="book-num">BOOK 02</span>
+            <img src="./IMG_9181.jpeg" alt="Strangers Are Lurking Book Two" class="book-cover" loading="lazy" />
+          </div>
+          <div class="book-body">
+            <span class="book-eyebrow">THE STORY CONTINUES</span>
+            <h3>Strangers Are Lurking</h3>
+            <p class="book-tagline">Book Two in the Within These Walls Series</p>
+            <p class="book-desc">The world didn’t end all at once—it died piece by piece. Kyle has learned to survive by moving fast and trusting almost no one. Alongside Molly, Jay, Mel, and young Cody, he’s stayed ahead of the violence—until they realize some horrors aren’t waiting outside. Some live inside.</p>
+            <p class="book-warning">THE FIGHT FOR SURVIVAL DEEPENS.</p>
+            <div class="book-actions">
+              <a class="btn btn-primary" href="https://www.amazon.com/s?i=stripbooks&k=Strangers+Are+Lurking+Jannell+Eric+Turner+hardcover" target="_blank" rel="noreferrer">Buy Hardcover &nearr;</a>
+              <a class="btn btn-outline" href="https://www.amazon.com/s?i=stripbooks&k=Strangers+Are+Lurking+Jannell+Eric+Turner+paperback" target="_blank" rel="noreferrer">Buy Paperback &nearr;</a>
+              <a class="btn btn-outline" href="https://www.amazon.com/s?i=digital-text&k=Strangers+Are+Lurking+Jannell+Eric+Turner" target="_blank" rel="noreferrer">Kindle Edition &nearr;</a>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="teaser-banner">
+        <div>
+          <span class="kicker">BOOK 03 &middot; INCOMING TRANSMISSION</span>
+          <h4>Book Three is on its way.</h4>
+          <p>Catch up on <em>Within These Walls</em> and <em>Strangers Are Lurking</em> now, or send Jannell &amp; Eric a note below.</p>
+        </div>
+        <a class="btn btn-outline" href="#contact">Message the Authors &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section authors" id="authors">
+    <div class="container">
+      <div class="authors-top">
+        <div>
+          <span class="kicker">03 / THE AUTHORS</span>
+          <h2>Jannell <em>&amp;</em> Eric Turner</h2>
+        </div>
+        <div class="authors-bio">
+          <p>Within These Walls was written by my husband and I to explore that question through the lives of ordinary people facing extraordinary circumstances. The series follows believers as they endure government restrictions, martial law, imprisonment, betrayal, and the daily struggle to survive while holding on to their faith.</p>
+          <p>This isn’t just a story about end times. It’s a story about courage, conviction, family, sacrifice, and the question every believer must eventually answer:</p>
+          <p class="endurance">“How much are you willing to endure for what you believe?”</p>
+          <p class="authors-note"><strong>Within These Walls Series by Jannell &amp; Eric Turner</strong> — Book One &amp; Book Two available now. Pick up your books today. Book Three is on its way.</p>
+        </div>
+      </div>
+
+      <div class="gallery" aria-label="Photos of the authors and books">
+        <figure class="gallery-item is-featured"><img src="./IMG_0054.jpeg" alt="Within These Walls series" loading="lazy" /><figcaption>Within These Walls Series</figcaption></figure>
+        <figure class="gallery-item"><img src="./IMG_0270.jpeg" alt="Jannell and Eric Turner" loading="lazy" /><figcaption>Jannell &amp; Eric Turner</figcaption></figure>
+        <figure class="gallery-item"><img src="./IMG_0279.jpeg" alt="Within These Walls books" loading="lazy" /><figcaption>Book One &amp; Two</figcaption></figure>
+        <figure class="gallery-item"><img src="./IMG_0305.jpeg" alt="Within These Walls behind the scenes" loading="lazy" /><figcaption>Behind the Scenes</figcaption></figure>
+        <figure class="gallery-item"><img src="./IMG_2338.jpeg" alt="The authors" loading="lazy" /><figcaption>The Authors</figcaption></figure>
+        <figure class="gallery-item"><img src="./IMG_6750.jpeg" alt="Some walls protect" loading="lazy" /><figcaption>Some Walls Protect</figcaption></figure>
+        <figure class="gallery-item"><img src="./IMG_8685.jpeg" alt="Faith and courage" loading="lazy" /><figcaption>Faith &amp; Courage</figcaption></figure>
+        <figure class="gallery-item"><img src="./IMG_9181.jpeg" alt="Strangers Are Lurking" loading="lazy" /><figcaption>Strangers Are Lurking</figcaption></figure>
+        <figure class="gallery-item"><img src="./IMG_9216.jpeg" alt="Jannell and Eric" loading="lazy" /><figcaption>Jannell &amp; Eric</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="section contact" id="contact">
+    <div class="container contact-grid">
+      <div class="contact-copy">
+        <span class="kicker">04 / CORRESPONDENCE</span>
+        <h2>We’d love to <em>hear from you.</em></h2>
+        <p>Have a note for Jannell and Eric about the books, speaking, or Book Three? Write it here and open it directly in your email app or copy it to send.</p>
+        <p class="direct-email">Direct email: <a href="mailto:Jannelldt@gmail.com">Jannelldt@gmail.com</a></p>
+      </div>
+      <div class="contact-card">
+        <label for="readerMessage">Your message to the authors</label>
+        <textarea id="readerMessage" placeholder="Write your note to Jannell & Eric..."></textarea>
+        <div class="contact-actions">
+          <a class="btn btn-primary is-disabled" id="emailBtn" href="mailto:Jannelldt@gmail.com">Open Email App &nearr;</a>
+          <button class="btn btn-outline" id="copyBtn" type="button" disabled>Copy Message</button>
+        </div>
+        <p class="feedback" id="copyFeedback"></p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand"><span class="monogram">WTW</span><span>Within These Walls Series &middot; Jannell &amp; Eric Turner</span></div>
+      <span class="copyright">&copy; <span id="yr">2026</span> Cipher Studio Solutions. All rights reserved.</span>
+      <a href="#top" class="back-top">Back to top &uarr;</a>
+    </div>
+  </footer>
+
+  <aside class="comms">
+    <section class="comms-panel" id="commsPanel" aria-label="Live Transmission Field Guide">
+      <div class="comms-head">
+        <div class="comms-beacon" aria-hidden="true"><span></span></div>
+        <div><span class="comms-overline">LIVE TRANSMISSION // ACTIVE</span><h2>Field Comms Terminal</h2></div>
+        <div class="comms-head-actions">
+          <button class="comms-mute" id="commsMute" type="button">SFX: ON</button>
+          <button class="comms-close" id="commsClose" type="button" aria-label="Close transmission">&times;</button>
+        </div>
+      </div>
+      <p class="comms-sub">Encrypted archive &mdash; verified facts only. No spoilers.</p>
+      <div class="comms-log" id="commsLog">
+        <p class="comms-msg guide">// SIGNAL LOCKED &mdash; Transmission from inside the walls. Ask about Book One, Book Two, reading order, or Book Three.</p>
+      </div>
+      <div class="comms-prompts" id="commsPrompts">
+        <button type="button">What order do I read them in?</button>
+        <button type="button">What is Book One about?</button>
+        <button type="button">Tell me about Book Two</button>
+        <button type="button">When is Book Three coming?</button>
+      </div>
+      <form class="comms-form" id="commsForm">
+        <input id="commsInput" type="text" placeholder="Transmit a question..." autocomplete="off" />
+        <button id="commsSend" type="submit" disabled>&rarr;</button>
+      </form>
+    </section>
+    <button class="comms-btn" id="commsToggle" type="button">
+      <span class="live-dot" aria-hidden="true"></span>
+      <span id="commsBtnLabel">Live Comms</span>
+    </button>
+  </aside>
+
+  <script>
+    document.getElementById('yr').textContent=new Date().getFullYear();
+    const menuBtn=document.getElementById('menuBtn'),mainNav=document.getElementById('mainNav');
+    menuBtn.addEventListener('click',()=>mainNav.classList.toggle('is-open'));
+    mainNav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>mainNav.classList.remove('is-open')));
+
+    const msgInput=document.getElementById('readerMessage'),emailBtn=document.getElementById('emailBtn'),copyBtn=document.getElementById('copyBtn'),copyFeedback=document.getElementById('copyFeedback');
+    function syncContact(){
+      const val=msgInput.value.trim(),empty=!val;
+      copyBtn.disabled=empty;emailBtn.classList.toggle('is-disabled',empty);
+      emailBtn.href='mailto:Jannelldt@gmail.com?subject='+encodeURIComponent('A note about Within These Walls')+'&body='+encodeURIComponent(val);
     }
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--sans); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
-    a { color: inherit; text-decoration: none; }
-    button, textarea, input { font: inherit; }
-    .container { width: min(1140px, 90%); margin: 0 auto; }
+    msgInput.addEventListener('input',()=>{copyFeedback.textContent='';syncContact();});
+    emailBtn.addEventListener('click',e=>{if(!msgInput.value.trim())e.preventDefault();});
+    copyBtn.addEventListener('click',async()=>{
+      const val=msgInput.value.trim();if(!val)return;
+      try{await navigator.clipboard.writeText(val);copyFeedback.textContent='Message copied to clipboard.';}
+      catch{copyFeedback.textContent='Clipboard blocked — tap Open Email App instead.';}
+    });
 
-    .header { position: sticky; top: 0; z-index: 30; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 14px 5%; background: rgba(12,12,10,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
-    .brand { display: inline-flex; align-items: center; gap: 12px; }
-    .monogram { width: 40px; height: 40px; display: grid; place-items: center; border: 1px solid #d45b39; background: rgba(212,91,57,0.12); font-family: var(--serif); font-weight: 600; font-size: 14px; letter-spacing: 0.08em; flex-shrink: 0; }
-    .brand-text { display: flex; flex-direction: column; line-height: 1.2; }
-    .brand-text strong { font-family: var(--serif); font-size: 15px; font-weight: 600; color: #f5efe4; }
-    .brand-text small { font-size: 10px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--muted); margin-top: 2px; }
-    .nav { display: flex; align-items: center; gap: 26px; }
-    .nav a { font-size: 12px; text-transform: uppercase; letter-spacing: 0.12em; font-weight: 600; color: #cfc8ba; transition: color 0.2s; }
-    .nav a:hover { color: var(--ember); }
-    .nav-cta { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; background: var(--rust); color: #fff !important; border: 1px solid #e06d53; }
-    .nav-cta:hover { background: var(--rust-bright); }
-    .menu-btn { display: none; width: 42px; height: 42px; background: transparent; border: 1px solid var(--border); color: var(--text); place-items: center; cursor: pointer; }
+    let audioCtx=null,sfxEnabled=true;
+    function getCtx(){if(!audioCtx){const Ctx=window.AudioContext||window.webkitAudioContext;if(Ctx)audioCtx=new Ctx();}if(audioCtx&&audioCtx.state==='suspended')audioCtx.resume();return audioCtx;}
+    function playStatic(ctx,dur,vol){const len=Math.floor(ctx.sampleRate*dur),buf=ctx.createBuffer(1,len,ctx.sampleRate),data=buf.getChannelData(0);for(let i=0;i<len;i++)data[i]=(Math.random()*2-1)*(1-i/len);const src=ctx.createBufferSource();src.buffer=buf;const f=ctx.createBiquadFilter();f.type='bandpass';f.frequency.value=1400;f.Q.value=1.2;const g=ctx.createGain();g.gain.value=vol;src.connect(f);f.connect(g);g.connect(ctx.destination);src.start();}
+    function playTone(ctx,freq,delay,dur,vol){const o=ctx.createOscillator(),g=ctx.createGain();o.type='square';o.frequency.value=freq;const t=ctx.currentTime+delay;g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(vol,t+.015);g.gain.exponentialRampToValueAtTime(.0001,t+dur);o.connect(g);g.connect(ctx.destination);o.start(t);o.stop(t+dur+.02);}
+    function playRadio(kind){if(!sfxEnabled)return;try{const ctx=getCtx();if(!ctx)return;if(kind==='open'){playStatic(ctx,.22,.16);playTone(ctx,880,.06,.09,.06);playTone(ctx,1320,.16,.12,.06);}else if(kind==='reply'){playStatic(ctx,.14,.12);playTone(ctx,1046,.03,.07,.05);playTone(ctx,784,.11,.09,.05);}else{playStatic(ctx,.09,.08);}}catch{}}
 
-    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 46px; padding: 0 18px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; border: 1px solid transparent; cursor: pointer; transition: transform 0.2s, background 0.2s, border-color 0.2s; }
-    .btn:hover:not(:disabled):not(.is-disabled) { transform: translateY(-2px); }
-    .btn-primary { background: var(--rust); color: #fff; border-color: #e47157; box-shadow: 0 10px 28px rgba(201,74,48,0.28); }
-    .btn-primary:hover:not(.is-disabled) { background: var(--rust-bright); }
-    .btn-ghost { background: rgba(255,255,255,0.05); color: var(--text); border-color: rgba(242,236,225,0.25); }
-    .btn-ghost:hover { background: rgba(255,255,255,0.1); border-color: var(--ember); }
-    .btn-outline { background: transparent; color: var(--text); border-color: rgba(222,168,132,0.38); }
-    .btn-outline:hover:not(:disabled) { background: rgba(212,91,57,0.14); border-color: var(--ember); }
-    .btn:disabled, .btn.is-disabled { opacity: 0.4; cursor: not-allowed; }
+    const commsPanel=document.getElementById('commsPanel'),commsToggle=document.getElementById('commsToggle'),commsClose=document.getElementById('commsClose'),commsMute=document.getElementById('commsMute'),commsBtnLabel=document.getElementById('commsBtnLabel'),commsLog=document.getElementById('commsLog'),commsForm=document.getElementById('commsForm'),commsInput=document.getElementById('commsInput'),commsSend=document.getElementById('commsSend');
+    function setComms(open){commsPanel.classList.toggle('is-open',open);commsBtnLabel.textContent=open?'End Comms':'Live Comms';playRadio(open?'open':'close');}
+    commsToggle.addEventListener('click',()=>setComms(!commsPanel.classList.contains('is-open')));
+    commsClose.addEventListener('click',()=>setComms(false));
+    commsMute.addEventListener('click',()=>{sfxEnabled=!sfxEnabled;commsMute.textContent=sfxEnabled?'SFX: ON':'MUTED';if(sfxEnabled)playRadio('open');});
 
-    .hero { position: relative; padding: 64px 0 72px; background: linear-gradient(160deg, #12110e 0%, #0c0c0a 60%, #16110e 100%); overflow: hidden; }
-    .hero-glow { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(circle at 76% 38%, rgba(201,74,48,0.22), transparent 48%); }
-    .hero-grid { position: absolute; inset: 0; pointer-events: none; opacity: 0.25; background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px); background-size: 48px 48px; }
-    .hero-inner { position: relative; z-index: 1; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 48px; align-items: center; }
-    .tag { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border: 1px solid rgba(212,91,57,0.45); background: rgba(212,91,57,0.1); color: #ea8c68; font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; }
-    .hero h1 { font-family: var(--serif); font-size: clamp(40px, 5.5vw, 72px); line-height: 1.04; font-weight: 500; margin: 20px 0 18px; letter-spacing: -0.02em; }
-    .hero h1 em { color: var(--ember); font-style: italic; }
-    .hero-sub { font-size: 16px; line-height: 1.7; color: #c8c1b4; max-width: 540px; margin: 0 0 28px; }
-    .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 30px; }
-    .hero-meta { display: flex; flex-wrap: wrap; gap: 24px; padding-top: 22px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
-    .hero-meta strong { color: var(--text); margin-right: 4px; }
-    .cover-stage { padding: 18px; background: #161512; border: 1px solid rgba(222,168,132,0.25); box-shadow: 0 28px 70px rgba(0,0,0,0.65); max-width: 410px; margin-left: auto; }
-    .cover-badge { display: inline-block; margin-bottom: 12px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em; color: #ea8c68; }
-    .cover-img { width: 100%; height: auto; display: block; object-fit: contain; background: #0c0c0a; }
-    .cover-caption { display: flex; justify-content: space-between; gap: 10px; margin-top: 12px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); }
-
-    .pillars { background: #141310; border-top: 1px solid rgba(255,255,255,0.08); border-bottom: 1px solid rgba(255,255,255,0.08); padding: 36px 0; }
-    .pillars-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-    .pillar { padding: 20px; background: rgba(255,255,255,0.02); border: 1px solid rgba(222,168,132,0.12); }
-    .pillar-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; color: var(--ember); margin-bottom: 8px; display: block; }
-    .pillar h3 { font-family: var(--serif); font-size: 19px; margin: 0 0 8px; }
-    .pillar p { font-size: 13px; line-height: 1.65; color: #b5aea1; margin: 0; }
-
-    .section { padding: 80px 0; }
-    .kicker { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em; color: var(--ember); margin-bottom: 12px; }
-    .section h2 { font-family: var(--serif); font-size: clamp(32px, 4.2vw, 52px); line-height: 1.08; font-weight: 500; margin: 0 0 18px; }
-    .section h2 em { color: var(--ember); font-style: italic; }
-
-    .story { background: #0f0e0c; }
-    .story-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 48px; align-items: start; }
-    .story-lead { font-family: var(--serif); font-style: italic; font-size: 19px; color: #b5aea1; line-height: 1.5
+    function answer(qText){
+      const q=qText.toLowerCase();
+      if(/\b(book three|third book|next book|release date|when|book\s*3)\b/.test(q))return'TRANSMISSION STATUS: Book Three is currently in the works! Start with Book One and Book Two today so you are ready when it drops.';
+      if(/\b(strangers are lurking|book two|book\s*2|second)\b/.test(q))return'BOOK TWO — Strangers Are Lurking: As the world unravels piece by piece, Kyle, Molly, Jay, Mel, and young Cody fight to stay ahead of the chaos—only to learn some horrors live inside.';
+      if(/\b(within these walls|book one|book\s*1|first|about)\b/.test(q))return'BOOK ONE — Within These Walls: Strangers are locked inside a remote military compound as a nation collapses. What begins as protection turns into a test of survival, betrayal, and faith.';
+      if(/\b(order|start|reading|sequence)\b/.test(q))return'RECOMMENDED ORDER: Start with Book One (Within These Walls), then continue straight into Book Two (Strangers Are Lurking).';
+      if(/\b(amazon|kindle|paperback|hardcover|hard cover|buy|purchase|where|find|get)\b/.test(q))return'ACQUISITION: Hardcover, Paperback, and Kindle buttons are in the Books section above—tap any Buy button to jump straight to Amazon.';
+      if(/\b(author|authors|jannell|eric|turner|husband|wife|who)\b/.test(q))return'THE AUTHORS: Written by husband-and-wife duo Jannell & Eric Turner—exploring courage, conviction, family, sacrifice, and faith under pressure.';
+      return'ARCHIVE NOTE: Ask me about Book One, Book Two, reading order, the authors, or Book Three—or scroll to Contact to message Jannell & Eric directly.';
+    }
+    function sendPrompt(text){
+      const clean=text.trim();if(!clean)return;
+      const p1=document.createElement('p');p1.className='comms-msg reader';p1.textContent=clean;
+      const p2=document.createElement('p');p2.className='comms-msg guide';p2.textContent=answer(clean);
+      commsLog.append(p1,p2);commsLog.scrollTop=commsLog.scrollHeight;
+      commsInput.value='';commsSend.disabled=true;playRadio('reply');
+    }
+    commsInput.addEventListener('input',()=>{commsSend.disabled=!commsInput.value.trim();});
+    commsForm.addEventListener('submit',e=>{e.preventDefault();sendPrompt(commsInput.value);});
+    document.getElementById('commsPrompts').querySelectorAll('button').forEach(btn=>btn.addEventListener('click',()=>sendPrompt(btn.textContent)));
+  </script>
+</body>
+</html>
